@@ -8,6 +8,7 @@ const app = express();
 
 app.get("/add-video-requests", async (req, res) => {
     // res.send("hello world")
+    const { request, name } = req.query
     const auth = new google.auth.GoogleAuth({
         keyFile: 'creator-app-key.json',
         scopes: "https://www.googleapis.com/auth/spreadsheets"
@@ -23,7 +24,7 @@ app.get("/add-video-requests", async (req, res) => {
     const googleSheets = google.sheets({ version: "v4", auth: client }); // object to access information
 
 
-    // get meta data about spread shit
+    // get meta data about spreadsheet
 
     // const metadata = await googleSheets.spreadsheets.get({
     //     auth,
@@ -51,8 +52,7 @@ app.get("/add-video-requests", async (req, res) => {
 
         resource: {
             values: [
-                ["Make a tutorial2", "My new name"],
-                ["Make a tutorial3", "My new name"],
+                [request, name]
             ]
         }
 
